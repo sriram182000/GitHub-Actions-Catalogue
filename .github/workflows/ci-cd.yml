@@ -38,6 +38,7 @@ jobs:
               run: |
                 zip_file="${{ github.event.inputs.app_name }}-${{ github.event.inputs.app_version}}.zip"
                 echo Creating zip file: ${zip_file}
+                zip -r ${zip_file} . --exclude=.zip
             
 
 
