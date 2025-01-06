@@ -1,9 +1,12 @@
 name: Catalogue-CI/CD
 
 on:
-    push:
-        branches:
-            - main
+    workflow_dispatch:
+        inputs:
+            app_name:
+                description: 'application name'
+                required: true
+                default : 'catalogue'
 
 jobs:
     build:
@@ -11,8 +14,15 @@ jobs:
 
         steps:
 
+
             - name: Git Checkout
               uses: actions/checkout@v3
+
+            - name: Get Version Number
+              id: get_version
+              run: | 
+              app_version = $(node -p "require('./package.json').version")
+              echo app_version: ${app_version}
 
             - name: Setup Nodejs
               uses: actions/setup-node@v3
@@ -22,5 +32,13 @@ jobs:
             - name: Install Dependencies
               run: |
                 npm install
+            
+            - name: Satic Code Analysis (Sonarqube)
+              run: echo "Sonar Scan"
+            
+            - name: Build
+              run: |
+              zip_file= "${{ github.events.inputs.app_name }}-${{ steps.get_version.outputs.app_version}}.zip"
+              echo Creating zip file: ${zip_file}
             
 
