@@ -21,7 +21,7 @@ jobs:
             - name: Get Version Number
               id: get_version
               run: | 
-              app_version = $(node -p "require('./package.json').version")
+              app_version=$(node -p "require('./package.json').version")
               echo app_version: ${app_version}
 
             - name: Setup Nodejs
