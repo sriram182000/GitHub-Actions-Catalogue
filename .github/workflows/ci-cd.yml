@@ -40,5 +40,19 @@ jobs:
                 echo Creating zip file: ${zip_file}
                 zip -r ${zip_file} . --exclude=.zip
             
+            - name: Docker login
+              uses: docker/login-action@v2
+              with:
+                username: sriram789
+                password: youcantguess
+            
+            - name: Docker build
+              run: |
+               docker build -t sriram789/${{ github.event.inputs.app_name}}:${{ github.event.inputs.app_version }} .
+
+            - name: Docker push 
+              run: |
+               docker push sriram789/${{ github.event.inputs.app_name}}:${{ github.event.inputs.app_version }}
+            
 
 
