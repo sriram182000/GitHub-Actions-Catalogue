@@ -42,7 +42,8 @@ jobs:
             
             - name: Docker login
               uses: docker/login-action@v2
-              with:
+              id: docker_login
+              env:
                 username: sriram789
                 password: youcantguess
             
