@@ -36,7 +36,7 @@ jobs:
             
             - name: Build
               run: |
-                zip_file= "${{ github.events.inputs.app_name }}-${{ github.events.inputs.app_version}}.zip"
+                zip_file="${{ github.event.inputs.app_name }}-${{ github.event.inputs.app_version}}.zip"
                 echo Creating zip file: ${zip_file}
             
 
